@@ -6,10 +6,10 @@ from marshmallow import Schema, fields
 class DeadlineSchema(Schema):
     id = fields.Integer()
     name = fields.Str(error_messages = {'required':'This field cannot be left blank'}, required = True)
-    type = fields.Str()
-    date = fields.DateTime()
-    priority = fields.Integer()
-    num_of_hours = fields.Float()
+    type = fields.Str(missing=None)
+    date = fields.DateTime(error_messages = {'required':'This field cannot be left blank'}, required = True)
+    priority = fields.Integer(missing=1)
+    num_of_hours = fields.Float(missing=None)
 
 class Deadline(Base):
     __tablename__ = 'deadline'

@@ -25,7 +25,7 @@ def hello():
 
 import endpoints
 # create a deadline
-api.add_resource(endpoints.CreateDeadline, '/create_deadline')
+api.add_resource(endpoints.CreateDeadline, '/create-deadline')
 # get complete info of specific deadline
 api.add_resource(endpoints.OneDeadline, '/deadline/<string:id>')
 
