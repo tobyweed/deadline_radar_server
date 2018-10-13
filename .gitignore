@@ -2,6 +2,7 @@
 venv
 serverenv
 .env
+app.db
 
 #misc
 __pycache__
