@@ -36,6 +36,15 @@ class Deadline(Base):
         return cls.query.filter_by(id = id).first()
 
     @classmethod
+    def find_all_ids(cls):
+        def to_json(x):
+            return {
+                'username': x.username,
+                'password': x.password
+            }
+        return cls.query.with_entities(Deadline.id).all()
+
+    @classmethod
     def delete_all(cls):
       try:
           num_rows_deleted = db_session.query(cls).delete()

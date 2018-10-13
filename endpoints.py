@@ -23,11 +23,11 @@ class CreateDeadline(Resource):
             num_of_hours = deadline.data['num_of_hours']
         )
 
-        print('s')
         try:
             new_deadline.save_to_db()
-            ret = promoter_schema.dump(promoter)
-            return {'message':'It probable worked!'},200
+            ret = deadline_schema.dump(new_deadline)
+            print(ret.data['id'])
+            return {"id":ret.data['id']},200
         except:
             return {'message':'Something went wrong.'},500
 
@@ -40,5 +40,14 @@ class OneDeadline(Resource):
         deadline_dump = deadline_schema.dump(deadline)
         try:
             return deadline_dump
+        except:
+            return {'message': 'Something went wrong.'}, 500
+
+class AllDeadlines(Resource):
+    def get(self):
+        ids = Deadline.find_all_ids();
+        print(ids)
+        try:
+            return [i[0] for i in ids]
         except:
             return {'message': 'Something went wrong.'}, 500
