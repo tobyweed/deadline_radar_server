@@ -93,8 +93,8 @@ class CreateDeadline(Resource):
             new_deadline.save_to_db()
             current_user.save_to_db()
             ret = deadline_schema.dump(new_deadline)
-            print(ret.data['id'])
-            return {"id":ret.data['id']},200
+            print(ret.data)
+            return ret,200
         except:
             return {'message':'Something went wrong.'},500
 
@@ -122,9 +122,11 @@ class AllDeadlines(Resource):
     @jwt_required
     def get(self):
         current_user_name = get_jwt_identity()
-        ids = Deadline.find_all_ids_of_user(current_user_name);
-        print(ids)
-        try:
-            return [i[0] for i in ids]
-        except:
-            return {'message': 'Something went wrong.'}, 500
+        ids = Deadline.find_all_deadlines_of_user(current_user_name);
+        ret_ids = []
+        for elt in ids:
+            ret_ids.append(deadline_schema.dump(elt))
+        # try:
+        return [i[0] for i in ret_ids]
+        # except:
+        #     return {'message': 'Something went wrong.'}, 500

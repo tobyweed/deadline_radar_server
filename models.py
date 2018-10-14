@@ -45,13 +45,13 @@ class Deadline(Base):
         return cls.query.filter_by(id = id).first()
 
     @classmethod
-    def find_all_ids_of_user(cls, username):
+    def find_all_deadlines_of_user(cls, username):
         def to_json(x):
             return {
                 'username': x.username,
                 'password': x.password
             }
-        return cls.query.filter_by(user_name = username).with_entities(Deadline.id).all()
+        return cls.query.filter_by(user_name = username).all()
 
     @classmethod
     def delete_all(cls):
